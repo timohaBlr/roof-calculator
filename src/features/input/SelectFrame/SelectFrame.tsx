@@ -1,13 +1,16 @@
 import {Field} from 'formik';
 import React from 'react';
-import {frames} from "../../../common/utils/jsonToJs";
+import useAppSelector from "../../../common/hooks/useAppSelector";
+import {selectFrames} from "../selectors";
 
 type SelectFramePropsType = {
     value: string
 }
 const SelectFrame = (props: SelectFramePropsType) => {
 
-    const mappedFrames = frames.map((m, index) => <option key={index} value={m.key}>{m.name}</option>)
+    const frames = useAppSelector(selectFrames)
+
+    const mappedFrames = frames.map((m, index) => <option key={index} value={m.step}>{m.name}</option>)
     return (
         <Field name="frame" as="select" value={props.value}>
             {mappedFrames}

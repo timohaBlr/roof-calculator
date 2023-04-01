@@ -1,14 +1,17 @@
 import React, {ChangeEvent, useState} from 'react';
-import {materials} from "../../../common/utils/jsonToJs";
 import SuperRadio from "../../../common/components/SuperRadio/SuperRadio";
-import { Field } from 'formik';
+import {Field} from 'formik';
+import useAppSelector from "../../../common/hooks/useAppSelector";
+import {selectMaterials} from "../selectors";
+import {DataType} from "../types";
 
 type SelectMaterialPropsType = {
     value: string
 }
 
-const SelectMaterial = (props:SelectMaterialPropsType) => {
+const SelectMaterial = (props: SelectMaterialPropsType) => {
 
+    const materials = useAppSelector(selectMaterials)
     const [material, setMaterial] = useState('All')
     const [order, setOrder] = useState('reset')
     const options = [
@@ -26,22 +29,22 @@ const SelectMaterial = (props:SelectMaterialPropsType) => {
     })
 
 
-
     const findThickness = (name: string) => {
         return Number(name.split(' ')[1])
     }
-    const sorterFn = (a: any, b: any) => {
+    const sorterFn = (a: DataType, b: DataType) => {
         if (order === 'Price') {
             return a.price - b.price
         } else if (order === 'Width') {
-            return a.width - b.width
+            return a.width! - b.width!
         } else if (order === 'Thickness') {
             return findThickness(a.name) - findThickness(b.name)
         } else return 0
     }
-    const materialsToRender = filteredMaterials.sort(sorterFn)
+    const sortedMaterials = filteredMaterials.sort(sorterFn)
 
-    const mappedMaterials = materialsToRender.map(m => <option key={m.name}>{m.name}, {m.price}</option>)
+    const mappedMaterials = sortedMaterials.map((m, index) => <option key={index} value={m.name}>{m.name},
+        Price: {m.price}</option>)
     const orderBy = [
         {id: 1, value: 'Price',},
         {id: 2, value: 'Width',},
@@ -53,7 +56,6 @@ const SelectMaterial = (props:SelectMaterialPropsType) => {
     const handleOrderBy = (e: ChangeEvent<HTMLSelectElement>) => {
         setOrder(e.currentTarget.value)
     }
-
     return (
         <div>
             <SuperRadio
