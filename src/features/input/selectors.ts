@@ -16,10 +16,10 @@ export const selectPipes = createSelector([(state: AppRootStateType) => state.da
 export const selectFrames = createSelector([(state: AppRootStateType) => state.data.config], (config) => {
     return config.filter(f => f.type === 'frame')
 })
-export const selectLength = createSelector([(state: AppRootStateType) => state.data.config], (config) => {
+export const selectLengthConfig = createSelector([(state: AppRootStateType) => state.data.config], (config) => {
     return config.find(f => f.key === 'length')
 })
-export const selectWidth = createSelector([(state: AppRootStateType) => state.data.config], (config) => {
+export const selectWidthConfig = createSelector([(state: AppRootStateType) => state.data.config], (config) => {
     return config.find(f => f.key === 'width')
 })
 export const selectUsedMaterial = createSelector([(state: AppRootStateType) => state.data.usedMaterial], (usedMaterial) => {
@@ -33,4 +33,7 @@ export const selectScrewValue = createSelector([(state: AppRootStateType) => sta
 })
 export const selectScrew = createSelector([(state: AppRootStateType) => state.data.data], (data) => {
     return data.find(f => f.type === 'fix')
+})
+export const selectConfig = createSelector([(state: AppRootStateType) => state.data.config], (config) => {
+    return config
 })

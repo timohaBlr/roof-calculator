@@ -26,6 +26,9 @@ export const countPipesLength = (cellSize: { cellWidth: number, cellLength: numb
     const externalLagsByWidth = 2
     const innerLagsByWidth = lagsByWidth - externalLagsByWidth
     const innerWidth = +width - 2 * pipeSize - pipeSize * (lagsByLength - 2)
-    return  +width * externalLagsByWidth + innerLength * lagsByLength + innerLagsByWidth * innerWidth
+    return +width * externalLagsByWidth + innerLength * lagsByLength + innerLagsByWidth * innerWidth
     // console.log('totalLength: ', totalLength)
+}
+export const roundByStep = (count: number,step:number) => {
+    return (Math.round(count / step) * step).toFixed(1)
 }

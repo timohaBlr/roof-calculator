@@ -31,17 +31,17 @@ const ResultView = () => {
 
     let screwsCount = 0
     if (screwValue && screwValue.value) {
-        screwsCount = square * +screwValue.value
+        screwsCount = Math.ceil(square * +screwValue.value)
     }
     let screwsTotalPrice = 0
     if (screw && screw.price) {
-        screwsTotalPrice = screwsCount * screw.price
+        screwsTotalPrice = Math.ceil(screwsCount * screw.price)
     }
     const totalPrice = materialPrice + pipePrice + screwsTotalPrice
 
     return (
         <div>
-            <p>Площадь изделия: {square} м2</p>
+            <p>Площадь изделия: {square.toFixed(2)} м2</p>
             <p>Расчетный размер ячейки: {cellWidth + ' X ' + cellLength}м</p>
             <table>
                 <thead>
