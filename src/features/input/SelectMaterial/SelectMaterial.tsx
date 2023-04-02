@@ -56,6 +56,7 @@ const SelectMaterial = (props: SelectMaterialPropsType) => {
     const handleOrderBy = (e: ChangeEvent<HTMLSelectElement>) => {
         setOrder(e.currentTarget.value)
     }
+
     return (
         <div>
             <SuperRadio
@@ -67,7 +68,7 @@ const SelectMaterial = (props: SelectMaterialPropsType) => {
             <select value={order} onChange={handleOrderBy}>
                 {mappedOrderBy}
             </select>
-            <Field name={'material'} as={'select'} value={props.value}>
+            <Field name={'name'} as={'select'} value={props.value}>
                 {mappedMaterials}
             </Field>
         </div>

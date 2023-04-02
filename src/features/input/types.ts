@@ -3,7 +3,8 @@ import * as actions from './actions'
 
 export type MaterialsActionsType = ReturnType<InferValueTypes<typeof actions>>
 export type DesignDataType = {
-    material: string
+    name: string
+    // material: string
     pipe: string
     width: string
     length: string
@@ -13,6 +14,13 @@ export type MaterialType = {
     type: string
     name: string
     material: string
+    unit: string
+    width: number
+    price: number
+}
+export type PipeType = {
+    type: string
+    name: string
     unit: string
     width: number
     price: number

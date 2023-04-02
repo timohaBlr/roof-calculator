@@ -4,9 +4,9 @@ import SelectPipe from "../SelectPipe/SelectPipe";
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import SelectFrame from "../SelectFrame/SelectFrame";
 import useAppDispatch from "../../../common/hooks/useAppDispatch";
-import {setUsedMaterialAC, setDesignDataAC} from "../actions";
+import { setDesignDataAC} from "../actions";
 import useAppSelector from "../../../common/hooks/useAppSelector";
-import {selectLength, selectWidth} from "../selectors";
+import {selectDesignData, selectLength, selectWidth} from "../selectors";
 
 interface ErrorsI {
     material?: string
@@ -21,19 +21,19 @@ const InputForm = () => {
     const dispatch = useAppDispatch()
     const width = useAppSelector(selectWidth)
     const length = useAppSelector(selectLength)
-
+    const designData = useAppSelector(selectDesignData)
 
     return (
         <Formik
             initialValues={{
-                material: 'Лист-1 0.5 ширина 1.8м',
-                pipe: '20',
+                name: designData.name,
+                pipe: designData.pipe,
                 width: '',
                 length: '',
-                frame: '1.2',
+                frame: designData.frame,
+                // material: 'all'
             }}
             onSubmit={(values) => {
-                dispatch(setUsedMaterialAC(values.material))
                 dispatch(setDesignDataAC({...values}))
                 // alert(JSON.stringify(values, null, 2));
             }}
@@ -41,7 +41,7 @@ const InputForm = () => {
                 const errors: ErrorsI = {}
                 if (!values.width) {
                     errors.width = 'Required';
-                } else if (!/^\d+$/.test(values.width)) {
+                } else if (!/^[0-9]*\.?[0-9]*$/.test(values.width)) {
                     errors.width = 'Only numbers';
                 } else if (+(values.width) > width!.max!) {
                     errors.width = 'Слишком большая ширина'
@@ -50,7 +50,7 @@ const InputForm = () => {
                 }
                 if (!values.length) {
                     errors.length = 'Required';
-                } else if (!/^\d+$/.test(values.length)) {
+                } else if (!/^[0-9]*\.?[0-9]*$/.test(values.length)) {
                     errors.length = 'Only numbers';
                 } else if (+(values.length) > length!.max!) {
                     errors.length = 'Слишком большая длина'
@@ -62,7 +62,7 @@ const InputForm = () => {
         >
             {({values}) => (
                 <Form>
-                    <SelectMaterial value={values.material}/>
+                    <SelectMaterial value={values.name}/>
                     <SelectPipe value={values.pipe}/>
                     <Field value={values.width} name={'width'}/>
                     <ErrorMessage name={'width'}/>

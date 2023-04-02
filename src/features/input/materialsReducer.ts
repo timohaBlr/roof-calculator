@@ -1,4 +1,4 @@
-import {ConfigType, DataType, MaterialsActionsType, MaterialType} from "./types";
+import {ConfigType, DataType, MaterialsActionsType, MaterialType, PipeType} from "./types";
 import {AllReducersActionType, AppThunk} from "../../app/types";
 import {setConfigAC, setDataAC} from "./actions";
 
@@ -13,8 +13,15 @@ const materialsInitialState = {
         unit: '',
         width: 0,
     },
+    usedPipe: {
+        name: '',
+        price: 0,
+        type: '',
+        unit: '',
+        width: 0,
+    },
     designData: {
-        material: 'Лист-1 0.5 ширина 1.8м',
+        name: 'Лист-1 0.5 ширина 1.8м',
         pipe: '20',
         width: '',
         length: '',
@@ -28,14 +35,17 @@ export type MaterialsInitialStateType = typeof materialsInitialState
 export const materialsReducer = (state: MaterialsInitialStateType = materialsInitialState, action: MaterialsActionsType): MaterialsInitialStateType => {
     switch (action.type) {
         case 'MATERIALS/SET_DESIGN_DATA':
-            return {...state, designData: action.payload.designData}
+            const usedMaterial = state.data.find(f => f.name === action.payload.designData.name)
+            const usedPipe = state.data.find(f => f.width === +action.payload.designData.pipe)
+            return {
+                ...state, designData: action.payload.designData,
+                usedMaterial: (usedMaterial ? usedMaterial : {}) as MaterialType,
+                usedPipe: (usedPipe ? usedPipe : {}) as PipeType
+            }
         case 'MATERIALS/SET_DATA':
             return {...state, data: action.payload.data}
         case 'MATERIALS/SET_CONFIG':
             return {...state, config: action.payload.config}
-        case 'MATERIALS/SET_USED_MATERIAL':
-            const usedMaterial = state.data.find(f => f.name === action.payload.materialName)
-            return {...state, usedMaterial: (usedMaterial ? usedMaterial : {}) as MaterialType}
         default:
             return state
     }
