@@ -3,27 +3,30 @@ import SuperRadio from "../../../common/components/SuperRadio/SuperRadio";
 import {Field} from 'formik';
 import useAppSelector from "../../../common/hooks/useAppSelector";
 import {selectMaterials} from "../selectors";
-import {DataType} from "../types";
+import {formMaterialsOptions} from "../../../common/utils/stringUtils";
+import s from './SelectMaterial.module.css'
+import {ListType} from "../types";
 
 type SelectMaterialPropsType = {
     value: string
+    disabled:boolean
 }
 
 const SelectMaterial = (props: SelectMaterialPropsType) => {
 
     const materials = useAppSelector(selectMaterials)
-    const [material, setMaterial] = useState('All')
+    const [material, setMaterial] = useState('1')
     const [order, setOrder] = useState('reset')
     const options = [
-        {id: 1, value: 'All'},
-        {id: 2, value: 'Plastic'},
-        {id: 3, value: 'Metal'},
+        {id: '1', value: 'Все'},
+        {id: '2', value: 'Пластик'},
+        {id: '3', value: 'Металл'},
     ]
 
     const filteredMaterials = materials.filter(f => {
-        if (material === 'Metal') {
+        if (material === '3') {
             return f.material === 'metal'
-        } else if (material === 'Plastic') {
+        } else if (material === '2') {
             return f.material === 'plastic'
         } else return f
     })
@@ -32,45 +35,63 @@ const SelectMaterial = (props: SelectMaterialPropsType) => {
     const findThickness = (name: string) => {
         return Number(name.split(' ')[1])
     }
-    const sorterFn = (a: DataType, b: DataType) => {
-        if (order === 'Price') {
+    const sorterFn = (a: ListType, b: ListType) => {
+        if (order === '1') {
             return a.price - b.price
-        } else if (order === 'Width') {
+        } else if (order === '2') {
             return a.width! - b.width!
-        } else if (order === 'Thickness') {
+        } else
             return findThickness(a.name) - findThickness(b.name)
-        } else return 0
     }
     const sortedMaterials = filteredMaterials.sort(sorterFn)
 
-    const mappedMaterials = sortedMaterials.map((m, index) => <option key={index} value={m.name}>{m.name},
-        Price: {m.price}</option>)
+
     const orderBy = [
-        {id: 1, value: 'Price',},
-        {id: 2, value: 'Width',},
-        {id: 3, value: 'Thickness',},
-        {id: 4, value: 'reset',},
+        {id: 1, value: 'Цене',},
+        {id: 2, value: 'Ширине',},
+        {id: 3, value: 'Толщине',},
     ]
-    const mappedOrderBy = orderBy.map(m => <option key={m.id}>{m.value}</option>)
+    const mappedOrderBy = orderBy.map(m => <option key={m.id} value={m.id}>{m.value}</option>)
 
     const handleOrderBy = (e: ChangeEvent<HTMLSelectElement>) => {
         setOrder(e.currentTarget.value)
     }
+    const mappedMaterials = sortedMaterials.map((m, index) => {
+        const title = formMaterialsOptions(m.name)
+        return <label className={s.label} key={index}>
+            <Field type="radio" name="list" value={m.name}/>
+            Лист {title[1]},
+            материал: {m.material === 'metal' ? 'металл' : 'пластик'}. {title[2]} {title[3]}.
+            Цена: {m.price}
+        </label>
+    })
 
     return (
-        <div>
-            <SuperRadio
-                name={'material'}
-                onChangeOption={setMaterial}
-                value={material}
-                options={options}
-            />
-            <select value={order} onChange={handleOrderBy}>
-                {mappedOrderBy}
-            </select>
-            <Field name={'name'} as={'select'} value={props.value}>
+        <div className={s.selectMaterial} style={{height: `${(materials.length + 1) * 21}px`}}>
+            <div className={s.settings}>
+
+                <div className={s.radioFilter}>
+                    <span>Материал: </span>
+                    <SuperRadio
+                        name={'material'}
+                        onChangeOption={setMaterial}
+                        value={material}
+                        options={options}
+                    />
+                </div>
+                <div className={s.orderBy}>
+                    <span>Сортировать по: </span>
+                    <select value={order}
+                            onChange={handleOrderBy}>
+                        {mappedOrderBy}
+                    </select>
+                </div>
+                <button type="submit" disabled={props.disabled}>Рассчитать</button>
+            </div>
+            <div className={s.mainSelect}>
                 {mappedMaterials}
-            </Field>
+            </div>
+
         </div>
     );
 };

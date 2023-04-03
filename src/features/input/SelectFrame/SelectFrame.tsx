@@ -10,7 +10,8 @@ const SelectFrame = (props: SelectFramePropsType) => {
 
     const frames = useAppSelector(selectFrames)
 
-    const mappedFrames = frames.map((m, index) => <option key={index} value={m.step}>{m.name}</option>)
+    const mappedFrames = frames.map((m, index) => <option key={index} value={m.key}>{m.name}</option>)
+
     return (
         <Field name="frame" as="select" value={props.value}>
             {mappedFrames}

@@ -1,49 +1,20 @@
 import React from 'react';
 import useAppSelector from "../../common/hooks/useAppSelector";
-import {
-    selectDesignData, selectScrew,
-    selectScrewValue,
-    selectSquare,
-    selectUsedMaterial,
-    selectUsedPipePrice
-} from "../input/selectors";
-import {listsCounter, cellSizer, countPipesLength} from "../../common/utils/mathUtils";
+import s from './ResultView.module.css'
+import {selectActiveItem} from "../basket/selectors";
 
 const ResultView = () => {
-    const square = useAppSelector(selectSquare)
-    const designData = useAppSelector(selectDesignData)
-    const material = useAppSelector(selectUsedMaterial)
-    const usedPipePrice = useAppSelector(selectUsedPipePrice)
-    const screwValue = useAppSelector(selectScrewValue)
-    const screw = useAppSelector(selectScrew)
+    const activeItem = useAppSelector(selectActiveItem)
 
-    const cellSize = cellSizer(designData)
-    let cellWidth = isFinite(cellSize.cellWidth) ? cellSize.cellWidth : 0
-    let cellLength = isFinite(cellSize.cellLength) ? cellSize.cellLength : 0
+    let cellWidth = activeItem.cellSize.cellWidth
+    let cellLength = activeItem.cellSize.cellLength
 
-    const listsCount = listsCounter(square, designData)
-    let materialPrice = 0
-    if (material) {
-        materialPrice = listsCount * material.price
-    }
-    const pipesCount = Math.ceil(countPipesLength(cellSize, designData))
-    const pipePrice = pipesCount * usedPipePrice
-
-    let screwsCount = 0
-    if (screwValue && screwValue.value) {
-        screwsCount = Math.ceil(square * +screwValue.value)
-    }
-    let screwsTotalPrice = 0
-    if (screw && screw.price) {
-        screwsTotalPrice = Math.ceil(screwsCount * screw.price)
-    }
-    const totalPrice = materialPrice + pipePrice + screwsTotalPrice
 
     return (
         <div>
-            <p>Площадь изделия: {square.toFixed(2)} м2</p>
+            <p>Площадь изделия: {activeItem.square} м2</p>
             <p>Расчетный размер ячейки: {cellWidth + ' X ' + cellLength}м</p>
-            <table>
+            <table className={s.table}>
                 <thead>
                 <tr>
                     <th>Наименование</th>
@@ -54,26 +25,26 @@ const ResultView = () => {
                 </thead>
                 <tbody>
                 <tr>
-                    <td>{designData.name}</td>
+                    <td>{activeItem.list.name}</td>
                     <td>м2</td>
-                    <td>{listsCount}</td>
-                    <td>{materialPrice}</td>
+                    <td>{activeItem.listsCount}</td>
+                    <td>{activeItem.listsPrice}</td>
                 </tr>
                 <tr>
-                    <td>Труба {designData.pipe}</td>
+                    <td>Труба {activeItem.pipe.width}</td>
                     <td>мп</td>
-                    <td>{pipesCount}</td>
-                    <td>{pipePrice}</td>
+                    <td>{activeItem.pipesCount}</td>
+                    <td>{activeItem.pipesPrice}</td>
                 </tr>
                 <tr>
                     <td>Саморез</td>
                     <td>шт</td>
-                    <td>{screwsCount}</td>
-                    <td>{screwsTotalPrice}</td>
+                    <td>{activeItem.fixingsCount}</td>
+                    <td>{activeItem.fixingsCount}</td>
                 </tr>
                 </tbody>
             </table>
-            <p>Итого: {totalPrice}</p>
+            <p>Итого: {activeItem.totalPrice}</p>
         </div>
     );
 };

@@ -1,34 +1,4 @@
-.radio {
-    height: 20px;
-    width: 20px;
-    accent-color: black;
-}
-
-.radio::before {
-
-}
-
-
-.radio:checked::before {
-
-}
-
-.label {
-    padding: 5px;
-
-}
-
-.options {
+.list{
     display: flex;
     flex-direction: column;
-
-    font-family: 'Montserrat', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    color: #000000;
-}
-.span {
-    padding-left: 10px;
 }

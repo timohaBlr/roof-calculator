@@ -1,16 +1,15 @@
-import {InferValueTypes} from "../../app/types";
+import { InferValueTypes} from "../../app/types";
 import * as actions from './actions'
 
 export type MaterialsActionsType = ReturnType<InferValueTypes<typeof actions>>
 export type DesignDataType = {
-    name: string
-    // material: string
+    list: string
     pipe: string
     width: string
     length: string
     frame: string
 }
-export type MaterialType = {
+export type ListType = {
     type: string
     name: string
     material: string
@@ -18,27 +17,17 @@ export type MaterialType = {
     width: number
     price: number
 }
-export type PipeType = {
-    type: string
-    name: string
-    unit: string
-    width: number
-    price: number
-}
-export type DataType = {
-    material?: string
-    name: string
-    price: number
-    type: string
-    unit: string
-    width?: number
-}
-export type ConfigType = {
+export type PipeType = Omit<ListType, 'material'>
+export type FixByTypeType = Omit<ListType, 'material' | 'width'>
+
+
+export type SizeType = {
     type: string
     key: string
     name: string
-    min?: number
-    max?: number
-    step?: number
-    value?: number
+    min: number
+    max: number
+    step: number
 }
+export type FrameType = Omit<SizeType, 'min' | 'max'>
+export type FixType = Omit<SizeType, 'min' | 'max'> & { value: number }
