@@ -1,6 +1,6 @@
 import {ActiveCartItemType, CartActionsType} from "./types";
 import {AllReducersActionType, AppThunk} from "../../app/types";
-import {DesignDataType, FixByTypeType, FixType, FrameType, ListType, PipeType} from "../input/types";
+import {DesignDataType, FixByTypeType, FixType, FrameType, ListType, PipeType} from "../calculator/types";
 import {setActiveCartItemAC} from "./actions";
 import {cellSizer, countPipesLength, listsCounter} from "../../common/utils/mathUtils";
 import {v1} from "uuid";

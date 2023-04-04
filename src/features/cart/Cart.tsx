@@ -1,26 +1,22 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
-import {PATH} from "../../common/routes";
 import {selectCartItems} from "./selectors";
 import useAppSelector from "../../common/hooks/useAppSelector";
-import CartItem from "./CartItem";
+import CartItem from "./CartItem/CartItem";
+import s from './Cart.module.css'
 
 const Cart = () => {
-    const navigate = useNavigate()
     const cartItems = useAppSelector(selectCartItems)
-    const handleToCalculator = () => {
-        navigate(PATH.calculator)
-    }
     const mappedItems = cartItems.map((item, index) => {
         return <CartItem key={index} activeItem={item} index={index}/>
     })
     return (
-        <div>
-            Cart
+        <div className={s.cart}>
             {cartItems.length
-                ?mappedItems
-                :<h3>Корзина пуста.</h3>}
-            <button onClick={handleToCalculator}>To calculator</button>
+                ? <div className={s.itemsGrid}>
+                    <p className={s.count}>Товаров в корзине: {cartItems.length}</p>
+                    {mappedItems}
+                </div>
+                : <h3>Корзина пуста.</h3>}
 
         </div>
     );

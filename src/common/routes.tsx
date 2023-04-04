@@ -1,9 +1,9 @@
 import {createHashRouter} from "react-router-dom";
 import {ErrorPage} from "./components/ErrorPage/ErrorPage";
 import MainLayout from "../app/MainLayout";
-import Calculator from "../features/input/Calculator";
+import Calculator from "../features/calculator/Calculator";
 import Cart from "../features/cart/Cart";
-import CartItemPage from "../features/cart/CartItemPage";
+import CartItemPage from "../features/cart/CartItemPage/CartItemPage";
 
 export const PATH = {
     calculator: '/calculator/',

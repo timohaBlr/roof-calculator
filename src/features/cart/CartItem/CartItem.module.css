@@ -1,0 +1,24 @@
+.item {
+    display: inline-block;
+}
+
+.item:hover .delete {
+    opacity: 1;
+    visibility: initial;
+}
+
+.delete {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    padding: 3px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .2s ease, visibility .2s ease;
+}
+
+.delete:hover {
+    background-color: #d9d9d9;
+}

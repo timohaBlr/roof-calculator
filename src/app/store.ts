@@ -2,7 +2,7 @@ import {legacy_createStore as createStore, combineReducers, applyMiddleware} fro
 import thunk from 'redux-thunk'
 import {AppThunkDispatch} from "./types";
 import {composeWithDevTools} from "redux-devtools-extension";
-import {calculatorReducer} from "../features/input/calculatorReducer";
+import {calculatorReducer} from "../features/calculator/calculatorReducer";
 import {appReducer} from "./appReducer";
 import {cartReducer} from "../features/cart/cartReducer";
 

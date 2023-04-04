@@ -1,7 +1,7 @@
 import {AnyAction} from "redux"
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "./store";
-import {CalculatorActionsType} from "../features/input/types";
+import {CalculatorActionsType} from "../features/calculator/types";
 import * as actions from "./actions";
 import {CartActionsType} from "../features/cart/types";
 

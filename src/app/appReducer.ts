@@ -1,5 +1,5 @@
 import {AllReducersActionType, AppActionsType, AppThunk, ConfigType, DataType} from "./types";
-import {setConfigAC, setDataAC} from "../features/input/actions";
+import {setConfigAC, setDataAC} from "../features/calculator/actions";
 import {setIsAppInitializedAC} from "./actions";
 
 const appInitialState = {

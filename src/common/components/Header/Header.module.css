@@ -1,0 +1,42 @@
+.header {
+    height: 80px;
+    background-color: #afb7c5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navigation {
+    display: flex;
+    gap: 10px;
+}
+
+.navigation a {
+    position: relative;
+}
+.navigation a:active{
+    color: black;
+}
+
+.navigation a:hover {
+    padding: 3px;
+    background-color: #717c98;
+    border-radius: 5px;
+}
+
+.itemsCount {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #c2c2c2;
+    border: 1px solid black;
+    top: -4px;
+    right: -7px;
+}
+.count{
+    font-weight: 800;
+    text-align: center;
+    font-size: 10px;
+}
+
