@@ -1,9 +1,10 @@
 import {InferValueTypes} from "../../app/types";
 import * as actions from './actions'
-import {FixByTypeType, FixType, FrameType, ListType, PipeType} from "../input/types";
+import {FixByTypeType, FixType, FrameType, ListType, PipeType} from "../calculator/types";
 
-export type BasketActionsType = ReturnType<InferValueTypes<typeof actions>>
-export type ActiveBasketItemType = {
+export type CartActionsType = ReturnType<InferValueTypes<typeof actions>>
+export type ActiveCartItemType = {
+    itemId: string
     list: ListType
     pipe: PipeType
     fix: FixType
