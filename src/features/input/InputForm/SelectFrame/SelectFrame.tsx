@@ -1,7 +1,7 @@
 import {Field} from 'formik';
 import React from 'react';
-import useAppSelector from "../../../common/hooks/useAppSelector";
-import {selectFrames} from "../selectors";
+import useAppSelector from "../../../../common/hooks/useAppSelector";
+import {selectFrames} from "../../selectors";
 
 type SelectFramePropsType = {
     value: string

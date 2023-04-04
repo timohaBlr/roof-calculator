@@ -1,11 +1,11 @@
 import React, {ChangeEvent, useState} from 'react';
-import SuperRadio from "../../../common/components/SuperRadio/SuperRadio";
+import SuperRadio from "../../../../common/components/SuperRadio/SuperRadio";
 import {Field} from 'formik';
-import useAppSelector from "../../../common/hooks/useAppSelector";
-import {selectMaterials} from "../selectors";
-import {formMaterialsOptions} from "../../../common/utils/stringUtils";
+import useAppSelector from "../../../../common/hooks/useAppSelector";
+import {selectMaterials} from "../../selectors";
+import {formMaterialsOptions} from "../../../../common/utils/stringUtils";
 import s from './SelectMaterial.module.css'
-import {ListType} from "../types";
+import {ListType} from "../../types";
 
 type SelectMaterialPropsType = {
     value: string
@@ -16,7 +16,7 @@ const SelectMaterial = (props: SelectMaterialPropsType) => {
 
     const materials = useAppSelector(selectMaterials)
     const [material, setMaterial] = useState('1')
-    const [order, setOrder] = useState('reset')
+    const [order, setOrder] = useState('1')
     const options = [
         {id: '1', value: 'Все'},
         {id: '2', value: 'Пластик'},

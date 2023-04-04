@@ -38,6 +38,7 @@ export const getDataAndConfigTC = (): AppThunk<AllReducersActionType> => async (
         dispatch(setConfigAC(result2))
         dispatch(setIsAppInitializedAC(true))
     } catch (err: any) {
+        console.warn(err)
     } finally {
 
     }

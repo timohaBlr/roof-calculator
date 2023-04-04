@@ -1,17 +1,17 @@
 import {AppRootStateType} from "../../app/store";
 import {createSelector} from "reselect";
 
-export const selectDesignData = (state: AppRootStateType) => state.data.designData
-export const selectMaterials = createSelector([(state: AppRootStateType) => state.data.data.lists], (lists) => {
+export const selectDesignData = (state: AppRootStateType) => state.calculator.designData
+export const selectMaterials = createSelector([(state: AppRootStateType) => state.calculator.data.lists], (lists) => {
     return lists
 })
-export const selectPipes = createSelector([(state: AppRootStateType) => state.data.data.pipes], (pipes) => {
+export const selectPipes = createSelector([(state: AppRootStateType) => state.calculator.data.pipes], (pipes) => {
     return pipes
 })
-export const selectFrames = createSelector([(state: AppRootStateType) => state.data.config.frame], (frame) => {
+export const selectFrames = createSelector([(state: AppRootStateType) => state.calculator.config.frame], (frame) => {
     return frame
 })
-export const selectSizeFromConfig = createSelector([(state: AppRootStateType) => state.data.config.size], (size) => {
+export const selectSizeFromConfig = createSelector([(state: AppRootStateType) => state.calculator.config.size], (size) => {
     return size
 })
 export const selectLengthConfig = createSelector([selectSizeFromConfig], (size) => {

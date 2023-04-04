@@ -1,15 +1,14 @@
 import React from 'react';
-import SelectMaterial from "../SelectMaterial/SelectMaterial";
-import SelectPipe from "../SelectPipe/SelectPipe";
+import SelectMaterial from "./SelectMaterial/SelectMaterial";
+import SelectPipe from "./SelectPipe/SelectPipe";
 import {Formik, Field, Form, ErrorMessage} from 'formik';
-import SelectFrame from "../SelectFrame/SelectFrame";
+import SelectFrame from "./SelectFrame/SelectFrame";
 import useAppDispatch from "../../../common/hooks/useAppDispatch";
-import {setDesignDataAC} from "../actions";
 import useAppSelector from "../../../common/hooks/useAppSelector";
 import {selectDesignData, selectLengthConfig, selectWidthFromConfig} from "../selectors";
 import {roundByStep} from "../../../common/utils/mathUtils";
 import s from './InputForm.module.css'
-import {setBasketActiveItemTC} from "../../basket/basketReducer";
+import {setCartActiveItemTC} from "../../cart/cartReducer";
 
 
 interface ErrorsI {
@@ -39,8 +38,8 @@ const InputForm = () => {
             onSubmit={(values) => {
                 values.width = roundByStep(+values.width, widthConfig!.step!)
                 values.length = roundByStep(+values.length, lengthConfig!.step!)
-                dispatch(setDesignDataAC({...values}))
-                dispatch(setBasketActiveItemTC({...values}))
+                // dispatch(setDesignDataAC({...values}))
+                dispatch(setCartActiveItemTC({...values}))
                 // alert(JSON.stringify(values, null, 2));
             }}
             validate={(values) => {

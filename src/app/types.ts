@@ -1,9 +1,9 @@
 import {AnyAction} from "redux"
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "./store";
-import {MaterialsActionsType} from "../features/input/types";
+import {CalculatorActionsType} from "../features/input/types";
 import * as actions from "./actions";
-import {BasketActionsType} from "../features/basket/types";
+import {CartActionsType} from "../features/cart/types";
 
 //general application types
 export type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never
@@ -15,7 +15,7 @@ export type AppThunk<A extends AnyAction, ReturnType = void> = ThunkAction<Retur
     unknown,
     A>
 
-export type AllReducersActionType = MaterialsActionsType | AppActionsType | BasketActionsType
+export type AllReducersActionType = CalculatorActionsType | AppActionsType | CartActionsType
 
 
 // appReducer types

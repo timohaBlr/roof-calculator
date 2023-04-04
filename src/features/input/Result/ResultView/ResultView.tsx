@@ -1,10 +1,12 @@
 import React from 'react';
-import useAppSelector from "../../common/hooks/useAppSelector";
 import s from './ResultView.module.css'
-import {selectActiveItem} from "../basket/selectors";
+import {ActiveCartItemType} from "../../../cart/types";
 
-const ResultView = () => {
-    const activeItem = useAppSelector(selectActiveItem)
+type ResultViewPropsType = {
+    activeItem: ActiveCartItemType
+}
+
+const ResultView: React.FC<ResultViewPropsType> = ({activeItem}) => {
 
     let cellWidth = activeItem.cellSize.cellWidth
     let cellLength = activeItem.cellSize.cellLength
@@ -12,8 +14,8 @@ const ResultView = () => {
 
     return (
         <div>
-            <p>Площадь изделия: {activeItem.square} м2</p>
-            <p>Расчетный размер ячейки: {cellWidth + ' X ' + cellLength}м</p>
+            <h5>Площадь изделия: {activeItem.square} м2</h5>
+            <h6>Расчетный размер ячейки: {cellWidth + ' X ' + cellLength}м</h6>
             <table className={s.table}>
                 <thead>
                 <tr>
@@ -44,7 +46,8 @@ const ResultView = () => {
                 </tr>
                 </tbody>
             </table>
-            <p>Итого: {activeItem.totalPrice}</p>
+            <h5>Итого: {activeItem.totalPrice}</h5>
+
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import {Field} from 'formik';
 import React from 'react';
-import useAppSelector from "../../../common/hooks/useAppSelector";
-import {selectPipes} from "../selectors";
+import useAppSelector from "../../../../common/hooks/useAppSelector";
+import {selectPipes} from "../../selectors";
 
 type SelectPipePropsType = {
     value: string
