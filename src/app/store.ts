@@ -2,14 +2,14 @@ import {legacy_createStore as createStore, combineReducers, applyMiddleware} fro
 import thunk from 'redux-thunk'
 import {AppThunkDispatch} from "./types";
 import {composeWithDevTools} from "redux-devtools-extension";
-import {materialsReducer} from "../features/input/materialsReducer";
+import {calculatorReducer} from "../features/calculator/calculatorReducer";
 import {appReducer} from "./appReducer";
-import {basketReducer} from "../features/basket/basketReducer";
+import {cartReducer} from "../features/cart/cartReducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
-    data: materialsReducer,
-    basket: basketReducer,
+    calculator: calculatorReducer,
+    cart: cartReducer,
 })
 
 const middlewareEnhancer = applyMiddleware<AppThunkDispatch, AppRootStateType>(thunk)

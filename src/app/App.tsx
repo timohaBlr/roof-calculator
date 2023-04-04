@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import InputForm from "../features/input/InputForm/InputForm";
-import ResultView from "../features/ResultView/ResultView";
 import useAppDispatch from "../common/hooks/useAppDispatch";
 import {getDataAndConfigTC} from "./appReducer";
 import {selectIsAppInitialized} from "./selectors";
 import useAppSelector from "../common/hooks/useAppSelector";
+import { RouterProvider } from 'react-router-dom';
+import {router} from "../common/routes";
 
 function App() {
     const dispatch = useAppDispatch()
@@ -16,12 +16,7 @@ function App() {
     }, [dispatch])
 
     if (!isAppInitialized) return <h1>Приложение загружается</h1>
-    return (
-        <>
-            <InputForm/>
-            <ResultView/>
-        </>
-    );
+    return <RouterProvider router={router}/>;
 }
 
 export default App;
