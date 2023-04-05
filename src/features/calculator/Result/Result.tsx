@@ -7,10 +7,13 @@ import {selectActiveItem} from "../../cart/selectors";
 import CalculatorInstruction from "./CalculatorInstruction/CalculatorInstruction";
 import s from './Result.module.css'
 import CartIcon from "../../../common/icons/CartIcon";
+import {useNavigate} from "react-router-dom";
+import {PATH} from "../../../common/routes";
 
 const Result = () => {
 
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const activeItem = useAppSelector(selectActiveItem)
     const [addToCartDisabled, setAddToCartDisabled] = useState(true)
@@ -22,12 +25,16 @@ const Result = () => {
     }, [activeItem.totalPrice])
 
     const handleAdToCart = () => {
-        dispatch(addToCartItemsAC(activeItem))
-        setAddToCartDisabled(true)
-        setAddToCardClass( s.toCart + ' ' + s.animation)
-        setTimeout(()=>{
-            setAddToCardClass(s.toCart)
-        }, 1200)
+        if (!addToCartDisabled) {
+            dispatch(addToCartItemsAC(activeItem))
+            setAddToCartDisabled(true)
+            setAddToCardClass(s.toCart + ' ' + s.animation)
+            setTimeout(() => {
+                setAddToCardClass(s.toCart)
+            }, 1200)
+        } else  {
+            navigate(PATH.cart)
+        }
     }
 
     return (
@@ -35,8 +42,11 @@ const Result = () => {
             {activeItem.totalPrice !== 0
                 ? <div className={s.result}>
                     <ResultView activeItem={activeItem}/>
-                    <button onClick={handleAdToCart} disabled={addToCartDisabled} className={addToCardClass}>
-                        <CartIcon/></button>
+                    <button onClick={handleAdToCart}
+                            // disabled={addToCartDisabled}
+                            className={addToCardClass}>
+                        <CartIcon/>
+                    </button>
                 </div>
                 : <CalculatorInstruction/>}
         </div>

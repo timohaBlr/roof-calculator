@@ -4,8 +4,9 @@ import useAppDispatch from "../common/hooks/useAppDispatch";
 import {getDataAndConfigTC} from "./appReducer";
 import {selectIsAppInitialized} from "./selectors";
 import useAppSelector from "../common/hooks/useAppSelector";
-import { RouterProvider } from 'react-router-dom';
+import {RouterProvider} from 'react-router-dom';
 import {router} from "../common/routes";
+import AppInfo from "../common/components/AppInfo/AppInfo";
 
 function App() {
     const dispatch = useAppDispatch()
@@ -15,7 +16,8 @@ function App() {
         dispatch(getDataAndConfigTC())
     }, [dispatch])
 
-    if (!isAppInitialized) return <h1>Приложение загружается</h1>
+    if (!isAppInitialized) return <AppInfo/>
+
     return <RouterProvider router={router}/>;
 }
 
