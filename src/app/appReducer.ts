@@ -36,12 +36,14 @@ export const getDataAndConfigTC = (): AppThunk<AllReducersActionType> => async (
 
         // const response1 = await fetch('data.json', {headers})
         // const result1: DataType[] = await response1.json()
+        // dispatch(setDataAC(result1))
         const response1 = await fetch(`${baseUrl}data.json`, {headers})
         const result1 = await response1.json()
         const data: DataType[] = JSON.parse(base64ToUtf8(result1.content))
 
         // const response2 = await fetch('config.json', {headers})
         // const result2: ConfigType[] = await response2.json()
+        // dispatch(setConfigAC(result2))
         const response2 = await fetch(`${baseUrl}config.json`, {headers})
         const result2 = await response2.json()
         const config: ConfigType[] = JSON.parse(base64ToUtf8(result2.content))
