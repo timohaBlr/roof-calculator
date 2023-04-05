@@ -1,6 +1,7 @@
 import {AllReducersActionType, AppActionsType, AppThunk, ConfigType, DataType} from "./types";
 import {setConfigAC, setDataAC} from "../features/calculator/actions";
 import {setIsAppInitializedAC} from "./actions";
+import {base64ToUtf8} from "../common/utils/base64ToUtf8";
 
 const appInitialState = {
     iSAppInitialized: false,
@@ -21,9 +22,7 @@ export const appReducer = (state: AppInitialStateType = appInitialState, action:
     }
 }
 
-function b64_to_utf8(str: string) {
-    return decodeURIComponent(escape(window.atob(str)));
-}
+
 
 //thunk creators
 export const getDataAndConfigTC = (): AppThunk<AllReducersActionType> => async (dispatch) => {
@@ -39,13 +38,13 @@ export const getDataAndConfigTC = (): AppThunk<AllReducersActionType> => async (
         // const result1: DataType[] = await response1.json()
         const response1 = await fetch(`${baseUrl}data.json`, {headers})
         const result1 = await response1.json()
-        const data: DataType[] = JSON.parse(b64_to_utf8(result1.content))
+        const data: DataType[] = JSON.parse(base64ToUtf8(result1.content))
 
         // const response2 = await fetch('config.json', {headers})
         // const result2: ConfigType[] = await response2.json()
         const response2 = await fetch(`${baseUrl}config.json`, {headers})
         const result2 = await response2.json()
-        const config: ConfigType[] = JSON.parse(b64_to_utf8(result2.content))
+        const config: ConfigType[] = JSON.parse(base64ToUtf8(result2.content))
         dispatch(setDataAC(data))
         dispatch(setConfigAC(config))
         dispatch(setIsAppInitializedAC(true))
